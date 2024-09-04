@@ -11,6 +11,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+    networks:
+      - internal-dev # must have name bellow
 
   adminer-dev:
     image: adminer:4.8.1-standalone
@@ -20,14 +22,31 @@ services:
       - '9080:8080' 
     networks:
       - internal-dev
+      - external-host # adminer must have external network
+
+  postgres-dev:
+    image: postgres:16.4-bullseye
+    container_name: postgres-dev
+    user: '${MY_UID}:${MY_GID}' # to set user must use bullseye, and not alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data/data-dev:/var/lib/postgresql/data
 
 volumes:
   portainer_data:
 
 networks:
   internal-dev:
-    external: false
     name: internal-dev
+    external: false
+  external-host:
+    name: external-host
+    external: true
 
 
 
