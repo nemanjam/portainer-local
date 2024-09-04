@@ -14,10 +14,14 @@ services:
       - ./mysql-data/data-dev:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - internal-dev
+      - default
+      - external-host
 
 networks:
-  internal-dev:
-    name: internal-dev
+  external-host:
+    name: external-host
+    external: true
+  default:
+    name: mysql-default
     external: false
 

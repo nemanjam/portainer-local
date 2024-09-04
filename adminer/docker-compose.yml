@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  adminer-dev:
+    image: adminer:4.8.1-standalone
+    container_name: adminer-dev
+    restart: unless-stopped
+    # network_mode: host # this works with localhost:5432, but can not change adminer port from 8080
+    networks:
+      - external-host # for postgres-dev:5432
+    ports:
+      - '9080:8080'
+
+networks:
+  external-host:
+    name: external-host
+    external: true
+
+
+
+
+

@@ -16,17 +16,16 @@ services:
       - ./postgres-data/data-dev:/var/lib/postgresql/data
       - /etc/passwd:/etc/passwd:ro  # must have this too for v16, can use alpine
     networks:
-      - internal-dev
-      # - external-host
+      - default
+      - external-host # for adminer postgres-dev:5432
 
 networks:
-  internal-dev:
-    name: internal-dev
-    external: false
   external-host:
     name: external-host
     external: true
-
+  default:
+    name: postgres-default
+    external: false
 
 
 

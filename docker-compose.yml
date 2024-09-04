@@ -12,28 +12,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     networks:
-      - internal-dev # must have name bellow
-
-  adminer-dev:
-    image: adminer:4.8.1-standalone
-    container_name: adminer-dev
-    restart: unless-stopped
-    ports:
-      - '9080:8080' 
-    networks:
-      - internal-dev
-      - external-host # adminer must have external network
+      - default # must have name bellow
 
 volumes:
   portainer_data:
 
 networks:
-  internal-dev:
-    name: internal-dev
+  default:
+    name: portainer-default
     external: false
-  external-host:
-    name: external-host
-    external: true
+
 
 
 
