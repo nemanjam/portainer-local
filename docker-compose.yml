@@ -37,6 +37,8 @@ services:
     volumes:
       - ./postgres-data/data-dev:/var/lib/postgresql/data
       - /etc/passwd:/etc/passwd:ro  # must have this too for v16, can use alpine
+    networks:
+      - internal-dev
 
 volumes:
   portainer_data:
