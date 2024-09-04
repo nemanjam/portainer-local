@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres-dev:
+    image: postgres:16.4-alpine
+    container_name: postgres-dev
+    restart: unless-stopped
+    user: '${MY_UID}:${MY_GID}' 
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbdev
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data/data-dev:/var/lib/postgresql/data
+      - /etc/passwd:/etc/passwd:ro  # must have this too for v16, can use alpine
+    networks:
+      - internal-dev
+      # - external-host
+
+volumes:
+  portainer_data:
+
+networks:
+  internal-dev:
+    name: internal-dev
+    external: false
+  external-host:
+    name: external-host
+    external: true
+
+
+
+

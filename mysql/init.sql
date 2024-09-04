@@ -1,0 +1,2 @@
+CREATE USER 'dev'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'dev'@'%' WITH GRANT OPTION;
